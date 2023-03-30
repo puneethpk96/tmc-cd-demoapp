@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "tmc-demoapp-chart.fullname" . }}
+  labels:
+    {{- include "tmc-demoapp-chart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "tmc-demoapp-chart.selectorLabels" . | nindent 4 }}
